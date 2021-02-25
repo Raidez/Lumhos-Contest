@@ -24,7 +24,7 @@ pygame.display.set_caption(TITLE)
 clock = pygame.time.Clock()
 
 # musique de fond
-pygame.mixer.music.load("res/fireflies_music.ogg")
+pygame.mixer.music.load("assets/music/fireflies.ogg")
 pygame.mixer.music.play(-1)
 
 
@@ -33,7 +33,7 @@ class Firefly(Circ):
     LIGHTUP_TIME = 1
     BRIGHT = Color(173, 255, 0)
     DARKER = Color(26, 36, 7)
-    SOUND = pygame.mixer.Sound("res/fireflies_shaked.ogg")
+    SOUND = pygame.mixer.Sound("assets/sound/fireflies_shaked.ogg")
     FADESOUND = 800
 
     def __init__(
@@ -161,12 +161,13 @@ class FadingMessage(Text):
         left_click = pygame.mouse.get_pressed()[0]
         self.countdown += delta
 
-        # self.y += self.speed * delta / 1000
+        # click alors que le message n'as pas fini de descendre
         if self.status == "fade in" and left_click:
             self.start_color = message.color
             self.status = "fade out"
             self.timer = 0
 
+        # le message apparait
         if self.status == "fade in" and self.countdown > FadingMessage.COUNTDOWN:
             if self.y < 50:
                 self.y += self.speed * delta / 1000
@@ -174,6 +175,7 @@ class FadingMessage(Text):
             self.color = fade_color(
                 FadingMessage.COLOR_START, FadingMessage.COLOR_END, self.timer
             )
+        # le message disparait
         elif self.status == "fade out":
             if self.y < 100:
                 self.y += self.speed * delta / 1000
