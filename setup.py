@@ -11,13 +11,14 @@ shutil.rmtree("build", ignore_errors=True)
 build_exe_options = {
     "packages": ["pygame"],
     "excludes": ["tkinter"],
-    "include_files": ["res/"],
+    "include_files": ["assets/"],
 }
 
 # options des exécutables
 base = "Win32GUI"  # application graphique Windows
 targets = [
     Executable("fireflies.py", base=base, target_name="Lucioles"),
+    Executable("fireflies_arcade.py", base=base, target_name="Lucioles Arcade"),
 ]
 
 # compilation du code
